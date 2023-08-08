@@ -134,6 +134,14 @@ This file configures VSCode to listen for Xdebug connections on port 9003 and pa
 
 Remember, it's crucial to ensure that the `XDEBUG_SESSION` environment variable is set in my environment when using this workflow. If it's not set, Xdebug won't start, even if `xdebug.start_with_request` is set to "trigger". I always double-check my environment variables before running my scripts.
 
+
+## Learnings 
+
+I've learned that the XDEBUG_SESSION variable I set on the command line is the same one I can 
+use as a GET/POST variable or cookie name in the browser. This variable is what I use to trigger a debugging session with Xdebug. I can set XDEBUG_SESSION=1 or to any other value that suits my needs.
+
+When using PhpStorm, I can differentiate between different servers based on the XDEBUG_SESSION value. This is useful when I'm working with multiple projects or servers. However, when using VSCode, it doesn't have the same server differentiation feature. In VSCode, I define my debugging configurations in a launch.json file, and the configuration used is determined by the one I select when I start debugging in VSCode.
+
 ## Current Status
 
 I've successfully set up Xdebug with Lando and VSCode.
