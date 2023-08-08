@@ -1,158 +1,136 @@
-# Assignment name: Setting up Xdebug with Lando and VSCode Part 1
+# Assignment name: Configuring Xdebug with VSCode and Lando for PHP Development
 
 ## Executive Summary 
 
-We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it works for both website debugging and CLI scripts. We've researched existing guides, formulated a setup guide, and started working through the guide. We've encountered an issue with hitting breakpoints in VSCode, which we have resolved for CLI scripts and as yet have not resolved for web scripts.
+We've been working on setting up Xdebug for PHP development using VSCode and Lando. The goal is to have Xdebug running in Lando all the time, with the ability to debug both CLI scripts and the website. We've made significant progress, but there are still some loose ends to tie up.
 
 ## Plan: 
 
-1. **Research existing guides and documentation**
+1. **Research existing guides on setting up Xdebug with Lando and VSCode for PHP development**
    - Status: Completed
-2. **Formulate a setup guide**
+2. **Analyze the guides and select the most suitable one**
    - Status: Completed
-3. **Hit a breakpoint in a CLI triggered script**
-   - Status: Completed     
-    1. **Work through the setup guide and keep a log**
-       - Status: Completed (continue in step 4)
-4. **Hit a breakpoint in a webscript called from the Brave browser**
-   - Status: In progress
-    1. **Work through the setup guide and keep a log**
-       - Status: In progress
-5. **Adjust the plan as new requirements or changes are discovered**
-   - Status: Not started
+3. **Formulate my own setup guide**
+   - Status: Completed
+3. **Follow the formulated guide to set up Xdebug**
+   - Status: Comleted
+4. **Test the setup by running a PHP script with Xdebug**
+   - Status: Completed
+4. **Test the CLI setup by running a PHP script with Xdebug**
+   - Status: Completed
+5. **Troubleshoot any issues encountered during testing**
+   - Status: In Progress
 
 ## Actions Taken 
 
-1. Researched existing guides and documentation on setting up Xdebug with Lando and VSCode.
-2. Formulated a setup guide based on the research.
-3. Started working through the setup guide.
-4. Encountered an issue with hitting breakpoints in VSCode.
-4. Resolved the issue with hitting breakpoints for CLI scripts.
-   
-## Loose ends
+1. **Researched existing guides on setting up Xdebug with Lando and VSCode for PHP development**
+   - Result: Found several guides and selected the most suitable one based on our requirements.
+   - Feedback: The guide provided a good starting point, but we encountered some issues during implementation.
+   - Next Step: Continue with the setup process and troubleshoot any issues.
 
-- Document the XDEBUG_SESSION variable.
-- Determine if any additional configuration is needed for CLI debugging.
-- Determine if any Chrome extensions are needed for website debugging.
+2. **Followed the selected guide to set up Xdebug**
+   - Result: Successfully configured Xdebug in Lando and VSCode.
+   - Feedback: The guide was helpful, but we encountered an issue when starting the debugger in VSCode.
+   - Next Step: Troubleshoot the issue and test the setup again.
+
+3. **Tested the setup by running a PHP script with Xdebug**
+   - Result: Encountered an error when starting the debugger in VSCode: "listen EADDRINUSE: address already in use :::9003".
+   - Feedback: The error suggests that the port 9003 is already in use. We need to ensure that no other process is using this port.
+   - Next Step: Troubleshoot the issue and test the setup again.
+
+4. **Restarted VSCode**
+   - Result: VSCode status bar went blue when I clicked "Listen for XDebug" indicated success.
+   - Feedback: The blue status bar, which also now reads "Listen for XDebug" tells us VSCode is ready to connect to to our debug session.
+   - Next Step: Troubleshoot the issue and test the setup again.
+
+4. **Run PHP script on CLI**
+   - Result: Script completed successfully, but VSCode did not catch any breakpoints.
+   - Feedback: The blue status bar, which also now reads "Listen for XDebug" tells us VSCode is ready to connect to to our debug session.
+   - Next Step: Troubleshoot the issue and test the setup again.
+
+6. **Troubleshot the issue and tested the setup again**
+   - Result: Successfully ran a PHP script with Xdebug after setting the `XDEBUG_SESSION` environment variable to 1 `lando ssh` `export XDEBUG_SESSION=1` 
+   - Feedback: The setup seems to be working correctly now. We need to do further testing to confirm.
+   - Next Step: Continue testing the setup and troubleshoot any issues.
 
 ## Pending actions  / Next steps.
 
-- Continue troubleshooting the issue with hitting breakpoints specifically for web sessions in VSCode.
-- Adjust the plan as new requirements or changes are discovered.
-
-## Recommended Next Steps 
-
-1. **Determine if any Chrome extensions are needed for website debugging**
-   - Task: I am open to suggestions as to a plan of attack for this task.
-2. **Adjust the plan as new requirements or changes are discovered**
-   - Task: If new requirements or changes are discovered during the setup process, adjust the plan and the guide accordingly.
-
-## Log of Today's Session
-
-1. Discussed the desired workflow for setting up Xdebug with Lando and VSCode.
-2. Updated the plan to include a research phase and a more iterative approach.
-3. Conducted a web search for existing guides on setting up Xdebug with Lando and VSCode.
-4. Analyzed the search results and recommended a guide to follow.
-5. Reviewed the existing `.lando.yml` and `.vscode/launch.json` files and the current PHP Xdebug settings.
-6. Discussed potential issues with hitting breakpoints in VSCode and recommended troubleshooting steps.
-7. Resolved the issue with hitting breakpoints on CLI scripts.
-7. Agreed to continue troubleshooting the issue with hitting breakpoints in web script in the next session.
+- Update the setup guide based on our experience and findings.
 
 ---
 
-# How to Set Up Xdebug with Lando and VSCode
+# How to Configure Xdebug with Lando and VSCode for PHP Development
 
-## Initial Configuration
+In this guide, I'll walk you through the steps I took to set up Xdebug for PHP development using VSCode and Lando. The goal was to have Xdebug running in Lando all the time, with the ability to debug both CLI scripts and the website.
 
-### .lando.yml
+## Prerequisites
 
-Here's my initial `.lando.yml` configuration:
+- Lando
+- VSCode
+- Xdebug Helper extension for Chrome
 
-```yml
-name: basiqvoyager
-recipe: lamp
-config:
-  php: '8.1'
-  webroot: web 
-  database: mariadb
-services:
-  appserver:
-    xdebug: true
-    overrides:
-      environment:
-        XDEBUG_MODE: "develop,debug"
-```
+## Steps
 
-This file configures my Lando environment. I've set the PHP version to 8.1, specified the webroot and database, and enabled Xdebug in the `appserver` service. I've also set the `XDEBUG_MODE` environment variable to "develop,debug", which enables both development aids and step debugging in Xdebug.
+1. **Configure Lando to use Xdebug**
 
-### .vscode/launch.json
+   I added the following configuration to my `.lando.yml` file to enable Xdebug:
 
-Here's my initial `.vscode/launch.json` configuration:
+   ```yml
+   name: basiqvoyager
+   recipe: lamp
+   config:
+     php: '8.1'
+     webroot: web 
+     database: mariadb
+   services:
+     appserver:
+       xdebug: true
+       overrides:
+         environment:
+           XDEBUG_MODE: "develop,debug"
+   ```
 
-```json
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Listen for XDebug",
-            "type": "php",
-            "request": "launch",
-            "port": 9003,
-            "stopOnEntry": true,
-            "pathMappings": {
-                "/app/": "${workspaceFolder}/",
-            }
-        }
-    ]
-}
-```
+   This tells Lando to enable Xdebug in the `appserver` service and sets the `XDEBUG_MODE` environment variable to "develop,debug".
 
-This file configures VSCode to listen for Xdebug connections on port 9003 and pause execution at the first line of every PHP script. The `pathMappings` setting maps the path in my Docker container (`/app/`) to the path on my local machine (`${workspaceFolder}/`).
+2. **Configure VSCode to listen for Xdebug connections**
 
-## Steps Taken
+   I added the following configuration to my `.vscode/launch.json` file:
 
-1. **Researched existing guides and documentation**: I conducted a web search for existing guides on setting up Xdebug with Lando and VSCode. I analyzed the search results and recommended a guide to follow.
+   ```json
+   {
+       "version": "0.2.0",
+       "configurations": [
+         {
+           "name": "Listen for XDebug",
+           "type": "php",
+           "request": "launch",
+           "port": 9003,
+           "stopOnEntry": true,
+           "pathMappings": {
+             "/app/": "${workspaceFolder}/",
+           }
+         }
+       ]
+     }
+   ```
 
-2. **Formulated a setup guide**: Based on the research, I formulated a setup guide that includes steps for setting up Xdebug to auto-start, having the IDE listen for incoming debug connections, and setting the necessary environment variables in Lando.
+   This tells VSCode to listen for incoming Xdebug connections on port 9003 and to stop at the first line of the script.
 
-3. **Checked PHP Xdebug settings**: I ran `php -i | grep 'xdebug\.'` and checked the following settings:
+3. **Check Xdebug settings**
 
-   - `xdebug.mode`: Found it to be "develop,debug", which matches the recommendation. This enables both development aids and step debugging.
-   - `xdebug.client_host`: Found it to be "192.168.0.237", while the guide recommends "$lando_host_ip". This might need to be adjusted depending on my Lando setup. Usually, it should be "localhost" or "127.0.0.1".
-   - `xdebug.client_port`: Found it to be "9003", which matches the recommendation. This is the port Xdebug will connect to.
-   - `xdebug.start_with_request`: Found it to be "trigger", while the guide recommends "yes". This means Xdebug will only start if a trigger (like a GET/POST variable or a cookie) is present. If I want Xdebug to always start, I should change this to "yes".
+   I ran `php -i` in my Lando environment and checked the following Xdebug settings:
 
-   Based on these findings, I decided to keep `xdebug.start_with_request` set to "trigger" and manually set the `XDEBUG_SESSION` environment variable when needed.
+   ```bash
+   php -i | grep -E 'xdebug.mode|xdebug.client_host|xdebug.client_port|xdebug.start_with_request'
+   ```
 
-4. **Encountered an error when starting the debugger in VSCode**: When I attempted to start the debugger in VSCode, I encountered an error: "listen EADDRINUSE: address already in use :::9003". This suggests that the port 9003 was already being used by another process. I restarted VSCode and my Lando project to resolve this issue.
+   This gave me the following output:
 
-5. **Located and shut down a separate Lando instance**: I realized that I had another Lando instance running, which could have been causing the "address already in use" error. I navigated to the directory of the other Lando project and ran `lando stop` to shut it down.
+   ```
+   xdebug.mode => develop,debug => develop,debug
+   xdebug.client_host => 192.168.0.237 => localhost
+   xdebug.client_port => 9003 => 9003
+   xdebug.start_with_request => trigger => trigger
+   ```
 
-6. **Set `XDEBUG_SESSION` in the wrong environment and session**: In the process of troubleshooting, I set the `XDEBUG_SESSION` environment variable in the wrong Lando session. This is a crucial step because the `XDEBUG_SESSION` environment variable needs to be set in the same environment where I'm running my script. If it's not set, Xdebug won't start, even if `xdebug.start_with_request` is set to "trigger". I realized this mistake, set the `XDEBUG_SESSION` environment variable in the correct Lando session, and ran my script again.
-
-7. **Ran a PHP script with Xdebug trigger**: After setting the `XDEBUG_SESSION` environment variable to 1 with the command `export XDEBUG_SESSION=1`, I ran a PHP script with the command `php create_application_jwt_token.php`. This time, the breakpoint set in VSCode was hit, indicating that Xdebug was working correctly.
-
-Remember, it's crucial to ensure that the `XDEBUG_SESSION` environment variable is set in my environment when using this workflow. If it's not set, Xdebug won't start, even if `xdebug.start_with_request` is set to "trigger". I always double-check my environment variables before running my scripts.
-
-
-## Learnings 
-
-I've learned that the XDEBUG_SESSION variable I set on the command line is the same one I can 
-use as a GET/POST variable or cookie name in the browser. This variable is what I use to trigger a debugging session with Xdebug. I can set XDEBUG_SESSION=1 or to any other value that suits my needs.
-
-When using PhpStorm, I can differentiate between different servers based on the XDEBUG_SESSION value. This is useful when I'm working with multiple projects or servers. However, when using VSCode, it doesn't have the same server differentiation feature. In VSCode, I define my debugging configurations in a launch.json file, and the configuration used is determined by the one I select when I start debugging in VSCode.
-
-## Current Status
-
-I've successfully set up Xdebug with Lando and VSCode.
-I'm now able to set breakpoints in VSCode and hit them when running PHP scripts.
-
-## Next Steps
-
-1. **Expect to need a browser extension**: Now that the CLI setup is working, I can test it with Brave to make sure it works as expected. I expect to need to install a browser extension, and configure it. We need to research that and then move on to the next step.
-
-2. **Test the setup with different scripts and scenarios**: Now that the CLI setup is working, I can test it with Brave to make sure it works as expected.
-
-5. **Adjust the setup as needed**: If I encounter any issues or if there are specific features I want to use, I might need to adjust the setup. For example, I might want to change the `xdebug.start_with_request` setting or add additional configuration options to my `.lando.yml` or `php.ini` files.
-
-I'll continue with these next steps in the next session. The goal is to have a working Xdebug setup that allows me to debug both website and CLI scripts in my Lando + VSCode environment.
+   I noticed that `xdebug.start_with_request` was set to "trigger", which means Xdebug will only start debugging when a specific trigger is present. In my case, this trigger is the `XDEBUG_SESSION` environment variable.
