@@ -2,7 +2,7 @@
 
 ## Executive Summary 
 
-We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it works for both website debugging and CLI scripts. We've researched existing guides, formulated a setup guide, and started working through the guide. We've encountered an issue with hitting breakpoints in VSCode, which we're currently troubleshooting.
+We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it works for both website debugging and CLI scripts. We've researched existing guides, formulated a setup guide, and started working through the guide. We've encountered an issue with hitting breakpoints in VSCode, which we have resolved for CLI scripts and as yet have not resolved for web scripts.
 
 ## Plan: 
 
@@ -27,7 +27,8 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
 2. Formulated a setup guide based on the research.
 3. Started working through the setup guide.
 4. Encountered an issue with hitting breakpoints in VSCode.
-
+4. Resolved the issue with hitting breakpoints for CLI scripts.
+   
 ## Loose ends
 
 - Document the XDEBUG_SESSION variable.
@@ -36,7 +37,7 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
 
 ## Pending actions  / Next steps.
 
-- Continue troubleshooting the issue with hitting breakpoints in VSCode.
+- Continue troubleshooting the issue with hitting breakpoints specifically for web sessions in VSCode.
 - Adjust the plan as new requirements or changes are discovered.
 
 ## Recommended Next Steps 
