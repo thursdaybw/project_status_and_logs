@@ -30,7 +30,7 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
 
 ## Loose ends
 
-- Resolve the issue with hitting breakpoints in VSCode.
+- Document the XDEBUG_SESSION variable.
 - Determine if any additional configuration is needed for CLI debugging.
 - Determine if any Chrome extensions are needed for website debugging.
 
@@ -41,8 +41,8 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
 
 ## Recommended Next Steps 
 
-1. **Troubleshoot the issue with hitting breakpoints in VSCode**
-   - Task: Check the path mappings in `launch.json`, the Xdebug configuration in `.lando.yml` and `php.ini`, and the network settings.
+1. **Determine if any Chrome extensions are needed for website debugging**
+   - Task: I am open to suggestions as to a plan of attack for this task.
 2. **Adjust the plan as new requirements or changes are discovered**
    - Task: If new requirements or changes are discovered during the setup process, adjust the plan and the guide accordingly.
 
@@ -54,7 +54,8 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
 4. Analyzed the search results and recommended a guide to follow.
 5. Reviewed the existing `.lando.yml` and `.vscode/launch.json` files and the current PHP Xdebug settings.
 6. Discussed potential issues with hitting breakpoints in VSCode and recommended troubleshooting steps.
-7. Agreed to continue troubleshooting the issue with hitting breakpoints in the next session.
+7. Resolved the issue with hitting breakpoints on CLI scripts.
+7. Agreed to continue troubleshooting the issue with hitting breakpoints in web script in the next session.
 
 ---
 
