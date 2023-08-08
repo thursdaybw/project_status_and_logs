@@ -10,9 +10,15 @@ We're working on setting up Xdebug in a Lando + VSCode environment, ensuring it 
    - Status: Completed
 2. **Formulate a setup guide**
    - Status: Completed
-3. **Work through the setup guide and keep a log**
+3. **Hit a breakpoint in a CLI triggered script**
+   - Status: Completed     
+    1. **Work through the setup guide and keep a log**
+       - Status: Completed (continue in step 4)
+4. **Hit a breakpoint in a webscript called from the Brave browser**
    - Status: In progress
-4. **Adjust the plan as new requirements or changes are discovered**
+    1. **Work through the setup guide and keep a log**
+       - Status: In progress
+5. **Adjust the plan as new requirements or changes are discovered**
    - Status: Not started
 
 ## Actions Taken 
@@ -128,12 +134,15 @@ Remember, it's crucial to ensure that the `XDEBUG_SESSION` environment variable 
 
 ## Current Status
 
-I've successfully set up Xdebug with Lando and VSCode. I'm now able to set breakpoints in VSCode and hit them when running PHP scripts.
+I've successfully set up Xdebug with Lando and VSCode.
+I'm now able to set breakpoints in VSCode and hit them when running PHP scripts.
 
 ## Next Steps
 
-1. **Test the setup with different scripts and scenarios**: Now that the basic setup is working, I can test it with different scripts and scenarios to make sure it works as expected.
+1. **Expect to need a browser extension**: Now that the CLI setup is working, I can test it with Brave to make sure it works as expected. I expect to need to install a browser extension, and configure it. We need to research that and then move on to the next step.
 
-2. **Adjust the setup as needed**: If I encounter any issues or if there are specific features I want to use, I might need to adjust the setup. For example, I might want to change the `xdebug.start_with_request` setting or add additional configuration options to my `.lando.yml` or `php.ini` files.
+2. **Test the setup with different scripts and scenarios**: Now that the CLI setup is working, I can test it with Brave to make sure it works as expected.
+
+5. **Adjust the setup as needed**: If I encounter any issues or if there are specific features I want to use, I might need to adjust the setup. For example, I might want to change the `xdebug.start_with_request` setting or add additional configuration options to my `.lando.yml` or `php.ini` files.
 
 I'll continue with these next steps in the next session. The goal is to have a working Xdebug setup that allows me to debug both website and CLI scripts in my Lando + VSCode environment.
