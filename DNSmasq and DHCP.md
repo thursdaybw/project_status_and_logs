@@ -1,3 +1,5 @@
+https://chat.openai.com/c/f69136ab-215a-4875-88a6-8d5965796255
+
 ### Purpose
 The main goal was to set up a home web server without a dedicated DNS or domain name. We aimed to host the server securely and simply, utilizing existing hardware and considering future plans like setting up other services like Nextcloud.
 
